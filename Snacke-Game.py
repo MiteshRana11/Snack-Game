@@ -1,5 +1,6 @@
-# Snack-Game
-#project of collage
+# Snake Game Project for College
+# Works in Python 3.13
+
 from turtle import *
 from random import randrange
 from freegames import square, vector
@@ -25,12 +26,15 @@ def move():
     if not inside(head) or head in snake:
         square(head.x, head.y, 9, 'red')
         update()
-        return
+        # Show Game Over message in console
+        print("Total score is:", len(snake))
+        print("GAME IS OVER")
+        return  # stop the game loop
 
     snake.append(head)
 
     if head == food:
-        print('Snake:', len(snake))
+        print('Snake length:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
     else:
@@ -45,15 +49,18 @@ def move():
     update()
     ontimer(move, 100)
 
+# Setup game window
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
 listen()
+
+# Controls
 onkey(lambda: change(10, 0), 'Right')
 onkey(lambda: change(-10, 0), 'Left')
 onkey(lambda: change(0, 10), 'Up')
 onkey(lambda: change(0, -10), 'Down')
+
+# Start game
 move()
 done()
-print('Total score is:',len(snake))
-print('GAME IS OVER')
